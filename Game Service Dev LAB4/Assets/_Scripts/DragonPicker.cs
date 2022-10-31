@@ -1,6 +1,6 @@
-using System.Collections.Generic; // new
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // new
+using UnityEngine.SceneManagement;
 
 public class DragonPicker : MonoBehaviour
 {
@@ -8,18 +8,18 @@ public class DragonPicker : MonoBehaviour
     public int numEnergyShield = 3;
     public float energyShieldBottomY = -6;
     public float energyShieldRadius = 1.5f;
-    public List<GameObject> shieldList; // new
+    public List<GameObject> shieldList;
 
     private void Start()
     {
-        shieldList = new(); // new
+        shieldList = new();
 
         for (int i = 1; i <= numEnergyShield; i++)
         {
             GameObject tShieldGo = Instantiate(energyShieldPrefab);
             tShieldGo.transform.position = new(0, energyShieldBottomY, 0);
             tShieldGo.transform.localScale = new(1 * i, 1 * i, 1 * i);
-            shieldList.Add(tShieldGo); // new
+            shieldList.Add(tShieldGo);
         }
     }
 
@@ -29,12 +29,12 @@ public class DragonPicker : MonoBehaviour
         foreach (GameObject tGO in tDragonEggArray)
             Destroy(tGO);
 
-        int shieldIndex = shieldList.Count - 1; // new
-        GameObject tShieldGo = shieldList[shieldIndex]; // new
-        shieldList.RemoveAt(shieldIndex); // new
-        Destroy(tShieldGo); // new
+        int shieldIndex = shieldList.Count - 1;
+        GameObject tShieldGo = shieldList[shieldIndex];
+        shieldList.RemoveAt(shieldIndex);
+        Destroy(tShieldGo);
 
-        if (shieldList.Count == 0) // new
-            SceneManager.LoadScene("_0Scene"); // new
+        if (shieldList.Count == 0)
+            SceneManager.LoadScene("_0Scene");
     }
 }
