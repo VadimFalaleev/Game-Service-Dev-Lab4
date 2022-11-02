@@ -119,7 +119,60 @@ public class MainMenu : MonoBehaviour
 
 ![Видео 02-11-2022 201356](https://user-images.githubusercontent.com/54228342/199527898-e9b2ca7e-012d-4810-ab08-2e3a34fb1430.gif)
 
+- В третьем видео мы будем дорабатывать функционал стартового меню, и сделаем возможность поставить игру на паузу и выйти на главноый экран.
+- Добавим кнопке выхода из игры метод Quit() по такой же схеме, как и с кнопкой начала игры.
+- Скопируем объект MainMenu, назовем его SettingMenu. В нем кнопку QuitButton переименуем в BackButton. Перепишем текст кнопки на "BACK". Удалим все прочие кнопки. В окне On Click() кнопки сделаем, как на скриншоте.
 
+![image](https://user-images.githubusercontent.com/54228342/199531802-da4bd2de-64ef-492c-8b2f-edfac663aa2c.png)
+
+- Для кнопки OptionButton объекта MainMenu сделаем тоже самое, но поменяем местами галочку. Объект SettingMenu изначально должен быть выключен. Для этого слева от названия объекта нужно убрать галочку.
+
+![image](https://user-images.githubusercontent.com/54228342/199532832-1d6dcbe1-4e2b-4a08-ad56-7876085f114c.png)
+![image](https://user-images.githubusercontent.com/54228342/199532903-e449117d-2133-4205-8fbc-50e32a890596.png)
+
+- Перейдем на сцену игры, создадим скрипт Pause и поместим его на MainCamera. В скрипт запишем следующее.
+
+```c#
+
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Pause : MonoBehaviour
+{
+    private bool paused = false;
+    public GameObject panel;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!paused)
+            {
+                Time.timeScale = 0;
+                paused = true;
+                panel.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                paused = false;
+                panel.SetActive(false);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+}
+
+```
+
+- Cоздадим текст, назовем его Pause. В самом тексте напишем "Paused". Настроим размер и цвет шрифта, а также расположение текста на экране. Добавим объекту якорь. Изначально сделаем его неактивным и добавим его в пустую ячейку последнего созданного скрипта. Данный текст будет появляться, если игра стоит на паузе.
+- Теперь посмотрим на результаты работы после просмотра третьего видео.
+
+![Видео 02-11-2022 205606](https://user-images.githubusercontent.com/54228342/199538783-35a795b5-138b-4b42-8ed7-742e93a03200.gif)
+
+- 
 
 ## Задание 2
 ### Привести описание того, как происходит сборка проекта под другие платформы. Какие могут быть особенности?
