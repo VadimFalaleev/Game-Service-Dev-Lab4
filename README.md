@@ -172,7 +172,65 @@ public class Pause : MonoBehaviour
 
 ![Видео 02-11-2022 205606](https://user-images.githubusercontent.com/54228342/199538783-35a795b5-138b-4b42-8ed7-742e93a03200.gif)
 
-- 
+- Следующий шаг: поработаем с музыкой и звуками для игры. В первую очередь добавим, установим и импортируем новый ассет со звуками "Free Orchestral Music Pack". 
+- На сцене стартового меню объекту MainCamera добавим комопнент Audio Source. Добавим аудиофайл "Aspiration Woods" в папку _AudioFiles и в этот компонент. Поставим галочки напротив Play On Awake и Loop. Такие же действия совершим в сцене самой игры, но уже с аудиофайлом "Final Struggle". После удалим папку ассета, она нам больше не понадобится.
+
+![image](https://user-images.githubusercontent.com/54228342/199549078-7df1af5a-382e-482b-8ab2-1e421ca19145.png)
+
+- Поработаем теперь со следующим ассетом, в котором уже будут звуковые эффекты: "Grenade Sound FX". После импорта его в проект перенесем файл Grenade2Short в папку _AudioFilesи переименуем его в DragonEggExplosion. После чего совершаем знакомые действия в префабе DragonEgg - добавляем компонент AudioSource, в него добавляем наш новый аудиофайл, и убираем галочку напротив Play On Awake.
+- Зайдем в скрипт DragonEgg и добавим в него несколько строчек для работы аудиофайла.
+
+```c#
+
+public class DragonEgg : MonoBehaviour
+{
+    public static float bottomY = -30f;
+    public AudioSource audioSource; // new
+
+    private void OnTriggerEnter(Collider other)
+    {
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+        var em = ps.emission;
+        em.enabled = true;
+
+        Renderer rend = GetComponent<Renderer>();
+        rend.enabled = false;
+
+        audioSource = GetComponent<AudioSource>(); // new
+        audioSource.Play(); // new
+    }
+    
+    ...
+
+```
+
+- Возьмем из ассета файл Impact on Snow, переименуем его в DragonEggImpact, перенесем его в папку с нашими аудифайлами. Сделаем все по такой же схеме, как и с прошлым аудиофайлом, но теперь в префабе EnergyShield. В скрипт EnergyShield добавим некоторые строчки кода.
+
+```c#
+
+public class EnergyShield : MonoBehaviour
+{
+    public TextMeshProUGUI scoreGT;
+    public AudioSource audioSource; // new
+    
+    ...
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject collided = collision.gameObject;
+        if (collided.tag == "Dragon Egg")
+            Destroy(collided);
+
+        int score = int.Parse(scoreGT.text);
+        score += 1;
+        scoreGT.text = score.ToString();
+
+        audioSource = GetComponent<AudioSource>(); // new
+        audioSource.Play(); // new
+    }
+}
+
+```
 
 ## Задание 2
 ### Привести описание того, как происходит сборка проекта под другие платформы. Какие могут быть особенности?
