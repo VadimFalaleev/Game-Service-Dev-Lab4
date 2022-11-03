@@ -347,7 +347,7 @@ https://user-images.githubusercontent.com/54228342/199641735-81fa0051-391d-4ff8-
 
 ![image](https://user-images.githubusercontent.com/54228342/199693811-bd45bce4-e8a7-478f-80b1-806b4fe9e9fe.png)
 
-- Создадим скрипт MusicManager, который будет отвечать за громкость музыки, и повешаем его на объект MainCamera.
+- Создадим скрипт MusicManager, который будет отвечать за громкость музыки, и повешаем его на объект MainCamera. Ключевое слово Static поможет сохранить громкость на обоих сценах.
 
 ```c#
 
@@ -356,7 +356,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
     private AudioSource music;
-    private float musicVolume = 1;
+    static private float musicVolume = 1;
 
     private void Start()
     {
@@ -380,5 +380,7 @@ public class MusicManager : MonoBehaviour
 
 ![image](https://user-images.githubusercontent.com/54228342/199697993-d11d6e0a-2dc4-447a-97a9-f9b96ac1f70c.png)
 
+- Перейдем на игровую сцену, чтобы этот же скрипт повесить на объект MainCamera. Иначе настройки громкости не перейдут на эту сцену. После всех действий можно посмотреть на работоспособность настройки громкости музыки. 
+- К сожалению, в README можно загружать файлы размером до 10МВ, а видео получилось большим, поэтому оно будет находится в репозитории под названием MusicTestVideo.
 
 ## Выводы
