@@ -339,6 +339,46 @@ https://user-images.githubusercontent.com/54228342/199641735-81fa0051-391d-4ff8-
 
 Ход работы:
 
+- Чтобы видеть, что мы делаем, отключим на время объект MainMenu и включим SettingMenu в Canvas на сцене главного меню. Добавим в Canvas 2 объекта - slider и text. Их мы перенесем в SettingMenu.
+
+![image](https://user-images.githubusercontent.com/54228342/199691918-b4c357bb-2be2-477b-bc9c-841f1a3666fe.png)
+
+- переименуем слайдер в MusicSlider, а текст можно сделать дочерним к слайдеру и написать в нем Music. После этого нужно новые объекты красиво поставить на сцене и задать нужные размеры. В компоненте Slider объекта MusicSlider изменим значение Value на 1.
+
+![image](https://user-images.githubusercontent.com/54228342/199693811-bd45bce4-e8a7-478f-80b1-806b4fe9e9fe.png)
+
+- Создадим скрипт MusicManager, который будет отвечать за громкость музыки, и повешаем его на объект MainCamera.
+
+```c#
+
+using UnityEngine;
+
+public class MusicManager : MonoBehaviour
+{
+    private AudioSource music;
+    private float musicVolume = 1;
+
+    private void Start()
+    {
+        music = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        music.volume = musicVolume;
+    }
+
+    public void SetVolume(float vol)
+    {
+        musicVolume = vol;
+    }
+}
+
+```
+
+- Далее вернемся к компоненту Slider объекта MusicSlider. В самом низу в окне On Value Changed нажмем на плюс, в пустую ячейку добавим объект MainCamera, а после этого нажмем No Function > MusicManager > SetVolume.
+
+![image](https://user-images.githubusercontent.com/54228342/199697993-d11d6e0a-2dc4-447a-97a9-f9b96ac1f70c.png)
 
 
 ## Выводы
